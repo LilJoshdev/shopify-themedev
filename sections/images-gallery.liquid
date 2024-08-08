@@ -1,0 +1,153 @@
+{% comment %} <h1 class="slider-heading">Love the comfort of your home with our awesome features</h1> {% endcomment %}
+{% comment %} <h2 class="slider-heading" style="color: {{ section.settings.color }};">{{
+    section.settings.heading }}
+</h2> {% endcomment %}
+<div class="slider-container">
+    <button class="prev-button" onclick="prevImage()">❮</button>
+    <div class="slider-image-wrapper">
+        {% for block in section.blocks %}
+        <img width="" height="" src="{{ block.settings.image | img_url: 'master' }}" alt="Slider Image" class="slider-image">
+        {% else %}
+        <img width="400" height="400" src="https://via.placeholder.com/800x400?text=Shopify+Placeholder" alt="Placeholder Image"
+            class="slider-image">
+        {% endfor %}
+    </div>
+    <button class="next-button" onclick="nextImage()">❯</button>
+</div>
+
+<script>
+    let currentIndex = 0;
+    const images = document.querySelectorAll('.slider-image');
+    const totalImages = images.length;
+
+    function showImage(index) {
+        images.forEach((img, i) => {
+            img.style.display = i === index ? 'block' : 'none';
+        });
+    }
+
+    function nextImage() {
+        currentIndex = (currentIndex + 1) % totalImages;
+        showImage(currentIndex);
+    }
+
+    function prevImage() {
+        currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+        showImage(currentIndex);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        showImage(currentIndex);
+    });
+</script>
+
+{% schema %}
+{
+    "name": "Image Slider",
+    "settings": [],
+    "blocks": [
+        {
+            "type": "image",
+            "name": "Image",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                }
+
+
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Image Slider",
+            "category": "Custom"
+        }
+    ]
+}
+{% endschema %}
+
+
+<!-- Styles for the image slider -->
+<style>
+.slider-heading {
+    text-align: center;
+    padding: 2rem 0;
+    width: 40%;
+    display: block;
+    margin: auto;
+    
+}
+.slider-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  margin: auto;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.slider-image-wrapper {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+@media (max-width: 768px) {
+    .slider-image-wrapper {
+        /* width: 50%; */
+    }
+}
+
+.slider-image {
+  width: 100%;
+  height: 500px;
+  object-fit: contain;
+  /* display: none; */
+}
+
+.prev-button, .next-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.prev-button {
+  left: 10px;
+}
+
+.next-button {
+  right: 10px;
+}
+
+.prev-button:hover, .next-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+</style>
+
+<!-- JavaScript for slider functionality -->
+<script>
+    let slideIndex = 0;
+    showSlides();
+
+    function plusSlides(n) {
+        slideIndex += n;
+        showSlides();
+    }
+
+    function showSlides() {
+        let slides = document.querySelectorAll('.slide');
+        if (slideIndex >= slides.length) { slideIndex = 0 }
+        if (slideIndex < 0) { slideIndex = slides.length - 1 }
+        slides.forEach((slide, index) => {
+            slide.style.transform = `translateX(-${slideIndex * 100}%)`;
+        });
+    }
+</script>

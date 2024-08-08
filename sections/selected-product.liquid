@@ -1,0 +1,132 @@
+<h2 class="seleted-product-heading">Product on sale</h2>
+{% if section.settings.selected_product %}
+{% assign product = all_products[section.settings.selected_product] %}
+<div class="product-display">
+    <div class="product-container">
+        <img width="350" height="600" src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
+        <div class="product-description">
+            <h2>{{ product.title }}</h2>
+            <h4>{{ product.price |  money_with_currency }}</h4>
+            <p>{{ product.description }}</p>
+
+            <form method="post" action="/cart/add">
+                <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% else %}
+<p class="default">Please select a product in the theme editor.</p>
+{% endif %}
+
+<style>
+    .seleted-product-heading {
+        text-align: center;
+        font-size: 3rem;
+        margin-top: 1.5rem;
+        background: {{ section.settings.background }};
+        color: {{section.settings.text_color}};
+    }
+    .product-display {
+        display: flex;
+        justify-content: center;
+        align-items: start;
+        min-height: 300px;
+        padding-top: 3rem;
+        background: {{ section.settings.background }};
+        /* color: {{section.settings.text_color}}; */
+    }
+
+    .product-container {
+        display: flex;
+        gap: 1rem;
+        /* flex-direction: column; */
+        align-items: start;
+        /* text-align: center; */
+    }
+
+    @media(max-width: 768px) {
+    .product-container {
+        flex-direction: column;
+        padding: 2rem 0;
+        justify-content: center;
+        align-items: center;
+    }
+
+    }
+    .product-container img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .product-description {
+        margin-top: 20px;
+        font-size: 1.25em;
+        flex: 1;
+        /* Adjust the font size as needed */
+    }
+
+    .add-to-cart-btn {
+        margin-top: 20px;
+        padding: 10px;
+        width: 100%;
+        background-color: {{section.settings.background_color }};
+
+        /* Adjust background color as needed */
+        color: {{section.settings.button_text_color }};
+
+        /* Adjust text color as needed */
+        border: none;
+        border-radius: 10rem;
+        cursor: pointer;
+        font-size: 1em;
+    }
+
+    .default {
+        padding: 3rem 0;
+        font-size: medium;
+        text-align: center
+    }
+</style>
+{% schema %}
+    {
+    "name": "Product Display",
+    "settings": [
+        {
+            "type": "product",
+            "id": "selected_product",
+            "label": "Select a product"
+        },
+        {
+            "type": "color",
+            "id": "background",
+            "label": "Background",
+            "default": "#F4F4F4"
+        },
+        {
+            "type": "color",
+            "id": "text_color",
+            "label": "Text",
+            "default": "#000000"
+        },
+        {
+            "type": "color",
+            "id": "button_text_color",
+            "label": "Button Text Color",
+            "default": "#ffffff"
+        },
+        {
+            "type": "color",
+            "id": "background_color",
+            "label": "Button Background-Color",
+            "default": "#007bff"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Product Display"
+        }
+    ]
+    }
+{% endschema %}

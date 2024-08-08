@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% comment %} <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> {% endcomment %}
+
+    <title>Homes theme</title>
+    {{ 'base.css' ||  asset_url ||  stylesheet_tag }}
+    {{ content_for_header }}
+
+</head>
+<body>
+    {% section 'announcement-bar' %}
+    {% section 'header' %}
+    <main id="main" role="main">
+        {{ content_for_layout }}
+    </main>
+
+    {% section 'footer' %}
+</body>
+</html>

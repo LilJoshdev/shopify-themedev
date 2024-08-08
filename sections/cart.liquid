@@ -1,0 +1,161 @@
+{% form 'cart', cart %}
+<section class="cart-sec">
+    {% if cart.empty? %}
+    <div class="empty-cart">
+        <p>cart is empty</p>
+
+    </div>
+        {% else %}
+        <div class="cart-display">
+            {% for item in cart.items %}
+            <div class="cart">
+
+                <div class="cart-item-image">
+                    <img width="100" height="100" loading="lazy" src="{{ item.image | img_url: 'small'}}">
+                </div>
+                <div class="cart-item-details">
+                    <h2>{{ item.title }}</h2>
+                    <p>{{ item.variant_title }}</p>
+                    <p>{{ item.final_line_price | money }}</p>
+                    <input name="updates[]" value="{{item.quantity }}" type="number" class="update">
+                    <a href="{{ item.url_to_remove }}" class="remove">remove</a>
+                    <p>Total: {{ cart.total_price | money }}</p>
+    
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+            </div>
+            <div class="cart-actions">
+
+                <button type="submit" name="update" class="update-cart-btn">update</button>
+    
+                <button type="submit" name="checkout" class="checkout-btn">Checkout</button>
+            </div>
+        {% endif %}
+</section>
+{% endform %}
+
+
+<style>
+     .cart-sec {
+        background-color: rgb(226, 226, 226);
+        /* display: flex;
+        justify-content: center; */
+        /* flex-direction: column; */
+        /* align-items: center; */
+        height: 100vh;
+       
+    }
+    .update {
+        width: 25%;
+        text-align: center;
+        outline: none;
+        margin: .2rem 0;
+        border: 1px solid #285da7;
+    }
+
+    .remove {
+        color: red;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .cart {
+        display: flex;
+        justify-content: space-around;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    /* .popup-cart-content {
+        background-color: white;
+        position: relative;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 600px;
+        width: 100%;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    } */
+
+    .cart-items {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .cart-item {
+        display: flex;
+        gap: 20px;
+    }
+
+    .cart-item-image img {
+        max-width: 100px;
+        height: auto;
+    }
+
+    .cart-item-details h4 {
+        margin: 0;
+        font-size: 1.2em;
+    }
+
+    .cart-actions {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .update-cart-btn,
+    .checkout-btn {
+        padding: 10px 20px;
+        background-color: #000;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    .checkout-btn {
+        background-color: #285da7;
+    }
+
+    .update-cart-btn:hover,
+    .checkout-btn:hover {
+        opacity: 0.8;
+    }
+</style>
+
+{% schema %}
+    {
+        "name": "cart",
+        "settings": [
+            {
+                "type": "color",
+                "id": "background",
+                "label": "Background",
+                "default": "#F4F4F4"
+            },
+            {
+                "type": "color",
+                "id": "text_color",
+                "label": "Text",
+                "default": "#000000"
+            }
+            ],
+        "presets": [
+        {
+            "name": "cart"
+        }
+        ]
+    }
+{% endschema %}

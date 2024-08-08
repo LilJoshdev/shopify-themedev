@@ -1,0 +1,129 @@
+<script>
+    function openMenu() {
+        document.getElementById("sideMenu").style.right = "0";
+    }
+
+    function closeMenu() {
+        document.getElementById("sideMenu").style.right = "-200px";
+    }
+
+    // Add event listener for clicks outside the menu to close it
+    window.addEventListener('click', function (event) {
+        var sideMenu = document.getElementById("sideMenu");
+        if (event.target !== sideMenu && !sideMenu.contains(event.target)) {
+            closeMenu();
+        }
+    });
+</script>
+
+<style>
+    .header {
+        display: flex;
+        justify-content: space-between;
+        margin: 0;
+        padding: 1px;
+        background-color: white;
+        padding: 1rem 3rem;
+        position: relative;
+    }
+
+    @media (max-width: 768px) {
+        .header {
+            flex-wrap: wrap;
+        }
+
+        .search {
+            order: 1;
+            flex: 0 0 100%;
+        }
+    }
+
+    .shopping-img {
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+
+    @media (max-width: 768px) {
+        .nav-links {
+            display: none;
+        }
+
+        .nav-links ul {
+            position: fixed;
+            top: 0;
+            right: -200px;
+            font-size: 30px;
+            padding-top: 50px;
+            width: 200px;
+            height: 100vh;
+            z-index: 1;
+            background-color: rgb(197, 170, 17);
+            transition: 0.5s;
+        }
+
+        .menu-btn {
+            display: block;
+            cursor: pointer;
+            font-size: 30px;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .nav-links ul {
+            display: flex;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .menu-btn {
+            display: none;
+        }
+    }
+
+    .nav-links ul li {
+        list-style-type: none;
+        padding: 10px;
+    }
+
+    .nav-links ul li:hover {
+        text-decoration: underline;
+    }
+
+    .nav-links ul li a {
+        text-decoration: none;
+        color: inherit;
+    }
+</style>
+
+<header class="header">
+    <div>
+        <span class="menu-btn" onclick="openMenu()">&#9776;</span>
+        <nav class="nav-links">
+            <ul id="sideMenu">
+                {% for link in linklists['main-menu'].links -%}
+                <li>{{ link.title | link_to: link.url }}</li>
+                {%- endfor %}
+            </ul>
+        </nav>
+    </div>
+
+    <div>
+        <a href="/">
+            <img width="40" height="40" loading="lazy" src="{{ 'home.jpg' | asset_url }}">
+        </a>
+    </div>
+
+    <form action="/search" class="search">
+        <input type="search" class="search__input" placeholder="Search">
+        <button class="search__button">
+            <svg class="search__icon">
+                {%- render 'search-icon' -%}
+            </svg>
+        </button>
+    </form>
+
+    <a href="/cart">
+        {%- render 'cart-icon' -%}
+    </a>
+</header>
+

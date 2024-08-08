@@ -1,0 +1,73 @@
+{
+  "sections": {
+    "banner": {
+      "type": "banner",
+      "settings": {
+        "banner_image": "shopify:\/\/shop_images\/large-grey-sofa-by-brick-wall_925x_d713e9f4-6b14-4e38-876f-d5bf20af809c.jpg",
+        "banner_heading": "Your Heading Here",
+        "banner_paragraph": "Your paragraph text goes here.",
+        "cta_button_link": "",
+        "cta_button_text": "Shop Now",
+        "text_color": "#ffffff",
+        "button_color": "#007bff",
+        "button_text_color": "#ffffff",
+        "background_color": "#000000",
+        "heading_color": "#ffffff",
+        "overlay_opacity": 0.7
+      }
+    },
+    "selected-product": {
+      "type": "selected-product",
+      "settings": {
+        "selected_product": "cream-sofa",
+        "background": "#F4F4F4",
+        "text_color": "#007bff",
+        "button_text_color": "#ffffff",
+        "background_color": "#007bff"
+      }
+    },
+    "images-gallery": {
+      "type": "images-gallery",
+      "blocks": {
+        "image_HBRRXE": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/dark-wall-bedside-table_925x_6adb9a42-81fd-41b5-94bc-66ed2010142b.jpg"
+          }
+        },
+        "image_BFWMGf": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/yellow-sofa-with-throw-pillows_925x_c675fdc8-0460-43c5-9a7b-368dee1c118f.jpg"
+          }
+        },
+        "image_pHQnJM": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/yellow-couch-by-black-and-white-mural_925x_3d1a1a10-22a8-4716-b482-39b6ea867e24.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "image_HBRRXE",
+        "image_BFWMGf",
+        "image_pHQnJM"
+      ],
+      "settings": {
+      }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "background": "#F4F4F4",
+        "text_color": "#007bff"
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "selected-product",
+    "images-gallery",
+    "featured-collection"
+  ]
+}

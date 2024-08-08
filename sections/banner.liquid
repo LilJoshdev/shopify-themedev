@@ -1,0 +1,242 @@
+<section class="banner-section">
+    {% if section.settings.banner_image %}
+    <div class="banner-image" style="background-image: url('{{ section.settings.banner_image | img_url: '1600x' }}');">
+        <div class="overlay" style="opacity: {{ section.settings.overlay_opacity }};"></div>
+        <div class="banner-content">
+            <h2 class="banner-heading" style="color: {{ section.settings.heading_color }};">{{
+                section.settings.banner_heading }}</h2>
+            <p class="banner-paragraph" style="color: {{ section.settings.text_color }};">{{
+                section.settings.banner_paragraph }}</p>
+            {% if section.settings.cta_button_link != "https://example.com" %}
+            <a href="{{ section.settings.cta_button_link }}" class="cta-button"
+                style="background-color: {{ section.settings.button_color }}; color: {{ section.settings.button_text_color }};">
+                {{ section.settings.cta_button_text }}
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    {% else %}
+    <div class="banner-content">
+        <h2 class="banner-heading" style="color: {{ section.settings.heading_color }};">{{
+            section.settings.banner_heading }}</h2>
+        <p class="banner-paragraph" style="color: {{ section.settings.text_color }};">{{
+            section.settings.banner_paragraph }}</p>
+        {% if section.settings.cta_button_link != "https://example.com" %}
+        <a href="{{ section.settings.cta_button_link }}" class="cta-button"
+            style="background-color: {{ section.settings.button_color }}; color: {{ section.settings.button_text_color }};">
+            {{ section.settings.cta_button_text }}
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+</section>
+
+<style>
+    .banner-section {
+        position: relative;
+        text-align: center;
+        margin-top: 3%;
+        /* padding: 40px; */
+        /* height: 80vh; */
+
+        background-color: {{section.settings.background_color }};
+        color: #fff;
+    }
+
+    .banner-image {
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        padding: 40px;
+        height: 80vh;
+
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 1);
+        z-index: 1;
+    }
+
+    .banner-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+    }
+
+    .banner-heading {
+        font-size: 3rem;
+        font-weight: 400;
+        letter-spacing: .7rem;
+
+        animation-name: moveInLeft;
+        animation-duration: 1s;
+        animation-timing-function: ease-out;
+        margin-bottom: 20px;
+    }
+
+    .banner-paragraph {
+        font-size: 1.3rem;
+        font-weight: 700;
+        /* letter-spacing: .75rem; */
+        animation: moveInRight 1s ease-out;
+        margin-bottom: 30px;
+    }
+
+    .cta-button {
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 1.5rem 4rem;
+        display: inline-block;
+        border-radius: 10rem;
+        transition: all .2s;
+        position: relative;
+        font-size: 1rem;
+        border: none;
+        cursor: pointer;
+    }
+
+    .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 1rem 2rem rgba($color-black, .2);
+    }
+    .cta-button::after {
+        transform: scaleX(1.4) scaleY(1.6);
+        opacity: 0;
+    }
+
+    @keyframes moveInLeft {
+    0% {
+        opacity: 0;
+        transform: translateY(-80rem);
+    }
+
+    80% {
+        transform: translateX(1rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes moveInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(10rem);
+    }
+
+    80% {
+        transform: translateX(-1rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes moveInBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(3rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+</style>
+
+
+
+
+{% schema %}
+{
+"name": "Banner",
+"settings": [
+{
+"type": "image_picker",
+"id": "banner_image",
+"label": "Banner Image"
+},
+{
+"type": "text",
+"id": "banner_heading",
+"label": "Heading",
+"default": "Your Heading Here"
+},
+{
+"type": "textarea",
+"id": "banner_paragraph",
+"label": "Paragraph",
+"default": "Your paragraph text goes here."
+},
+{
+"type": "url",
+"id": "cta_button_link",
+"label": "CTA Button URL",
+},
+{
+"type": "text",
+"id": "cta_button_text",
+"label": "CTA Button Text",
+"default": "Shop Now"
+},
+{
+"type": "color",
+"id": "text_color",
+"label": "Text Color",
+"default": "#ffffff"
+},
+{
+"type": "color",
+"id": "button_color",
+"label": "Button Color",
+"default": "#007bff"
+},
+{
+"type": "color",
+"id": "button_text_color",
+"label": "Button Text Color",
+"default": "#ffffff"
+},
+{
+"type": "color",
+"id": "background_color",
+"label": "Background Color",
+"default": "#000000"
+},
+{
+"type": "color",
+"id": "heading_color",
+"label": "Heading Color",
+"default": "#ffffff"
+},
+{
+"type": "range",
+"id": "overlay_opacity",
+"label": "Overlay Opacity",
+"default": 0.5,
+"min": 0,
+"max": 1,
+"step": 0.1
+}
+],
+"presets": [
+{
+"name": "Default",
+"category": "Custom"
+}
+]
+}
+{% endschema %}
